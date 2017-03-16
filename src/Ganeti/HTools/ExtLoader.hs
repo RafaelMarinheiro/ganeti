@@ -61,7 +61,7 @@ import qualified Ganeti.HTools.Backend.IAlloc as IAlloc
 import qualified Ganeti.HTools.Backend.MonD as MonD
 import Ganeti.HTools.CLI
 import Ganeti.HTools.Loader (mergeData, checkData, ClusterData(..)
-                            , commonSuffix, clearDynU)
+                            , commonSuffix, clearDynU, setStaticNodeMem)
 import Ganeti.HTools.Types
 import Ganeti.Utils (sepSplit, tryRead, exitIfBad, exitWhen)
 
@@ -122,8 +122,12 @@ loadExternalData opts = do
   now <- getClockTime
 
   let ignoreDynU = optIgnoreDynu opts
+      nodeMem = optStaticNodeMemory opts
       eff_u = if ignoreDynU then [] else util_data
       ldresult = input_data >>= (if ignoreDynU then clearDynU else return)
+                            >>= (if nodeMem > 0
+                                 then flip setStaticNodeMem $ nodeMem
+                                 else return)
                             >>= mergeData eff_u exTags selInsts exInsts now
   cdata <- exitIfBad "failed to load data, aborting" ldresult
   (cdata', ok) <- runWriterT $ if optMonD opts

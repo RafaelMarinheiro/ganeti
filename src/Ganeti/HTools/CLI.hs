@@ -112,6 +112,7 @@ module Ganeti.HTools.CLI
   , oShowVer
   , oShowComp
   , oSkipNonRedundant
+  , oStaticNodeMemory
   , oStdSpec
   , oTargetResources
   , oTieredSpec
@@ -203,6 +204,7 @@ data Options = Options
   , optShowNodes   :: Maybe [String] -- ^ Whether to show node status
   , optShowVer     :: Bool           -- ^ Just show the program version
   , optSkipNonRedundant :: Bool      -- ^ Skip nodes with non-redundant instance
+  , optStaticNodeMemory :: Int       -- ^ Use static value for node memory
   , optStdSpec     :: Maybe RSpec    -- ^ Requested standard specs
   , optTargetResources :: Double     -- ^ Target resources for squeezing
   , optTestCount   :: Maybe Int      -- ^ Optional test count override
@@ -259,6 +261,7 @@ defaultOptions  = Options
   , optNodeSim     = []
   , optNodeTags    = Nothing
   , optSkipNonRedundant = False
+  , optStaticNodeMemory = -1
   , optOffline     = []
   , optRestrictToNodes = Nothing
   , optOfflineMaintenance = False
@@ -659,7 +662,7 @@ oNodeTags =
    (ReqArg (\ f opts -> Ok opts { optNodeTags = Just $ sepSplit ',' f })
     "TAG,...") "Restrict to nodes with the given tags",
    OptComplString)
-     
+
 oOfflineMaintenance :: OptType
 oOfflineMaintenance =
   (Option "" ["offline-maintenance"]
@@ -761,6 +764,15 @@ oSkipNonRedundant =
    (NoArg (\ opts -> Ok opts { optSkipNonRedundant = True }))
     "Skip nodes that host a non-redundant instance",
     OptComplNone)
+
+oStaticNodeMemory :: OptType
+oStaticNodeMemory =
+  (Option "" ["static-node-memory"]
+   (reqWithConversion (tryRead "static node memory")
+    (\i opts -> Ok opts { optStaticNodeMemory = i }) "N")
+   "use static node memory [in MB] instead of the value reported by hypervisor.\
+   \ KVM doesn't provide isloation, so reported dom0 memory is useless.",
+   OptComplInteger)
 
 oStdSpec :: OptType
 oStdSpec =

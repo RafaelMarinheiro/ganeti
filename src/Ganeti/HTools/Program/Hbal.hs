@@ -95,6 +95,7 @@ options = do
     , oVerbose
     , oQuiet
     , oOfflineNode
+    , oStaticNodeMemory
     , oMinScore
     , oMaxCpu
     , oMinDisk

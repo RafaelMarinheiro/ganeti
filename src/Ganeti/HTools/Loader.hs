@@ -55,6 +55,7 @@ module Ganeti.HTools.Loader
   , emptyCluster
   , extractDesiredLocations
   , updateDesiredLocationTags
+  , setStaticNodeMem
   ) where
 
 import Control.Monad
@@ -371,6 +372,13 @@ clearDynU :: ClusterData -> Result ClusterData
 clearDynU cdata@(ClusterData _ _ il _ _) =
   let il2 = Container.map (\ inst -> inst {Instance.util = zeroUtil }) il
   in Ok cdata { cdInstances = il2 }
+
+
+-- | Update cluster data to use static node memory.
+setStaticNodeMem :: ClusterData -> Int -> Result ClusterData
+setStaticNodeMem cdata@(ClusterData _ nl _ _ _) staticNodeMem =
+  let nl' = Container.map (\ node -> node { Node.nMem = staticNodeMem }) nl
+  in Ok cdata { cdNodes = nl' }
 
 -- | Checks the cluster data for consistency.
 checkData :: Node.List -> Instance.List
