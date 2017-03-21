@@ -74,3 +74,4 @@ addons:
       - hlint
       - hscolour
       - libpcre3-dev
+      - libghc-cabal-dev
