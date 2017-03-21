@@ -1401,8 +1401,6 @@ $(HASKELL_PACKAGE_VERSIONS_FILE): Makefile ganeti.cabal \
 	  -f`test $(HTEST) == yes && echo "htest" || echo "-htest"` \
 	  -f`test $(ENABLE_MOND) == True && echo "mond" || echo "-mond"` \
 	  -f`test $(ENABLE_METADATA) == True && echo "metad" || echo "-metad"`
-	cabal --version
-	cabal configure
 	runhaskell $(abs_top_srcdir)/cabal/CabalDependenciesMacros.hs \
 	  ganeti.cabal \
 	  $(HASKELL_PACKAGE_IDS_FILE) \
