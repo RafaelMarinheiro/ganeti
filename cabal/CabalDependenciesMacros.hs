@@ -27,8 +27,8 @@ main = do
   -- Read the setup-config.
   m'conf <- tryGetPersistBuildConfig "dist"
   case m'conf of
-    Left (err, errtype) -> error ("could not read dist/setup-config: " ++ err)
-    Just conf -> do
+    Left err -> error ("could not read dist/setup-config: " ++ (show err))
+    Right conf -> do
 
       -- Write package dependencies.
       let deps = map (display . fst) $ externalPackageDeps conf
