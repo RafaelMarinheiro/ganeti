@@ -4,7 +4,7 @@ ghc:
   - 7.6
   - 7.4
 
-preinstall:
+before_install:
   - ./autogen.sh
 
 install:
