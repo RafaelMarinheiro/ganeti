@@ -5,12 +5,10 @@ ghc:
   - 7.4
 
 install:
-  - echo "Ok"
+  - cabal install lens
 
 script:
-  - ./autogen.sh
-  - ./configure --enable-haskell-tests
-  - make
+  - ./autogen.sh && ./configure --enable-haskell-tests && make
   - make hs-tests
   - make py-tests
 
@@ -60,7 +58,6 @@ addons:
       - libghc-hslogger-dev
       - libghc-hunit-dev
       - libghc-json-dev
-      - libghc-lens-dev
       - libghc-lifted-base-dev
       - libghc-network-dev
       - libghc-parallel-dev
@@ -77,4 +74,3 @@ addons:
       - libghc-vector-dev
       - libghc-zlib-dev
       - libpcre3-dev
-      - shelltestrunner
