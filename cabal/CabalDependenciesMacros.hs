@@ -27,7 +27,7 @@ main = do
   -- Read the setup-config.
   m'conf <- tryGetPersistBuildConfig "dist"
   case m'conf of
-    Left err -> error ("could not read dist/setup-config: " ++ err)
+    Left (err, errtype) -> error ("could not read dist/setup-config: " ++ err)
     Just conf -> do
 
       -- Write package dependencies.
