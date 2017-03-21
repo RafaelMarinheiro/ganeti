@@ -5,7 +5,7 @@ ghc:
   - 7.4
 
 install:
-  - cabal install Cabal && cabal update
+  - cabal install cabal-install && cabal update
   - cabal install --only-dependencies --enable-tests cabal/ganeti.template.cabal
 
 script:
