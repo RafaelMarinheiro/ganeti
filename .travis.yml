@@ -5,7 +5,30 @@ ghc:
   - 7.4
 
 install:
+  - cabal install attoparsec
+  - cabal install base64-bytestring
+  - cabal install crypto
+  - cabal install curl
+  - cabal install hinotify
+  - cabal install hslogger
+  - cabal install hunit
+  - cabal install json
   - cabal install lens
+  - cabal install lifted-base
+  - cabal install network
+  - cabal install parallel
+  - cabal install psqueue
+  - cabal install quickcheck2
+  - cabal install regex-pcre
+  - cabal install snap-server
+  - cabal install temporary
+  - cabal install test-framework
+  - cabal install test-framework-hunit
+  - cabal install test-framework-quickcheck2
+  - cabal install text
+  - cabal install utf8-string
+  - cabal install vector
+  - cabal install zlib
 
 script:
   - ./autogen.sh && ./configure --enable-haskell-tests && make
@@ -49,28 +72,4 @@ addons:
       - pylint
       - hlint
       - hscolour
-      - libghc-attoparsec-dev
-      - libghc-base64-bytestring-dev
-      - libghc-cabal-dev
-      - libghc-crypto-dev
-      - libghc-curl-dev
-      - libghc-hinotify-dev
-      - libghc-hslogger-dev
-      - libghc-hunit-dev
-      - libghc-json-dev
-      - libghc-lifted-base-dev
-      - libghc-network-dev
-      - libghc-parallel-dev
-      - libghc-psqueue-dev
-      - libghc-quickcheck2-dev
-      - libghc-regex-pcre-dev
-      - libghc-snap-server-dev
-      - libghc-temporary-dev
-      - libghc-test-framework-dev
-      - libghc-test-framework-hunit-dev
-      - libghc-test-framework-quickcheck2-dev
-      - libghc-text-dev
-      - libghc-utf8-string-dev
-      - libghc-vector-dev
-      - libghc-zlib-dev
       - libpcre3-dev
