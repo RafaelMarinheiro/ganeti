@@ -3,7 +3,7 @@ module Main where
 import Control.Applicative
 import qualified Data.Set as Set
 import qualified Distribution.Simple.Build.Macros as Macros
-import Distribution.Simple.Configure (maybeGetPersistBuildConfig)
+import Distribution.Simple.Configure (tryGetPersistBuildConfig)
 import Distribution.Simple.LocalBuildInfo (externalPackageDeps)
 import Distribution.PackageDescription (packageDescription)
 import Distribution.PackageDescription.Parse (readPackageDescription)
@@ -25,9 +25,9 @@ main = do
   pkgDesc <- packageDescription <$> readPackageDescription normal cabalPath
 
   -- Read the setup-config.
-  m'conf <- maybeGetPersistBuildConfig "dist"
+  m'conf <- tryGetPersistBuildConfig "dist"
   case m'conf of
-    Nothing -> error "could not read dist/setup-config"
+    Left err -> error ("could not read dist/setup-config: " ++ err)
     Just conf -> do
 
       -- Write package dependencies.
