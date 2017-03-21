@@ -6,7 +6,7 @@ ghc:
 
 install:
   - cabal install cabal-install && cabal update
-  - cabal install --only-dependencies --enable-tests cabal/ganeti.template.cabal
+  - cabal install --only-dependencies --force-reinstalls --enable-tests cabal/ganeti.template.cabal
 
 script:
   - ./autogen.sh && ./configure --enable-haskell-tests && make
