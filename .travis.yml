@@ -30,7 +30,6 @@ install:
   - cabal install test-framework-quickcheck2
   - cabal install text
   - cabal install vector
-  - cabal install shelltestrunner
 
 script:
   - ./autogen.sh && ./configure --enable-haskell-tests && make
