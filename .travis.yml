@@ -1,0 +1,17 @@
+language: haskell
+ghc:
+  - 7.8
+  - 7.6
+  - 7.4
+
+preinstall:
+  - ./autogen.sh
+
+install:
+  - cabal install --only-dependencies --enable-tests
+
+script:
+  - ./configure --enable-haskell-tests
+  - make
+  - make hs-tests
+  - make py-tests
