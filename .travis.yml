@@ -1,25 +1,8 @@
-language: haskell
-
-ghc:
-  - 7.8
-  - 7.6
-  - 7.4
-
-dist: trusty
-
-install:
-  - ghc --version
-  - cabal --version
-  - cabal install --only-dependencies --enable-tests cabal/ganeti.template.cabal
-
-script:
-  - ./autogen.sh && ./configure --enable-haskell-tests && make
-  - make hs-tests
-  - make py-tests
+language: generic
 
 addons:
   apt:
-    packages:
+    packages: &core_packages
       - bridge-utils
       - fping
       - iproute
@@ -65,7 +48,6 @@ addons:
       - libghc-hslogger-dev
       - libghc-hunit-dev
       - libghc-json-dev
-      - libghc-lens-dev
       - libghc-lifted-base-dev
       - libghc-network-dev
       - libghc-parallel-dev
@@ -81,4 +63,28 @@ addons:
       - libghc-utf8-string-dev
       - libghc-vector-dev
       - libghc-zlib-dev
-      - shelltestrunner
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - *core_packages
+            - [libghc-lens-dev, shelltestrunner]
+    - os: linux
+      dist: precise
+      addons:
+        apt:
+          packages:
+            - *core_packages
+
+
+install:
+  - cabal update && cabal install --only-dependencies --enable-tests cabal/ganeti.template.cabal
+
+script:
+  - ./autogen.sh && ./configure --enable-haskell-tests && make
+  - make hs-tests
+  - make py-tests
