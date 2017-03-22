@@ -1,4 +1,4 @@
-language: generic
+language: haskell
 
 addons:
   apt:
@@ -76,6 +76,7 @@ matrix:
             - [libghc-lens-dev, shelltestrunner]
     - os: linux
       dist: precise
+      ghc: 7.6.3
       addons:
         apt:
           packages:
