@@ -1,4 +1,4 @@
-language: haskell
+language: generic
 
 addons:
   apt:
@@ -12,6 +12,7 @@ addons:
       - make
       - ndisc6
       - openssl
+      - libssl-dev
       - python
       - python-bitarray
       - python-ipaddr
@@ -79,6 +80,8 @@ matrix:
         apt:
           packages:
             - *core_packages
+      install:
+        - cabal update && cabal install --only-dependencies --force-reinstalls --enable-tests cabal/ganeti.template.cabal
 
 
 install:
