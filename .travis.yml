@@ -52,6 +52,7 @@ addons:
       - python-mock
       - pep8
       - pylint
+      - cabal-install
       - hlint
       - hscolour
       - libpcre3-dev
