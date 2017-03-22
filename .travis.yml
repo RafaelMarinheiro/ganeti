@@ -5,6 +5,8 @@ ghc:
   - 7.6
   - 7.4
 
+dist: trusty
+
 install:
   - ghc --version
   - cabal --version
